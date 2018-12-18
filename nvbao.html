@@ -1,141 +1,218 @@
-
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<base target="_blank">
-<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
-<title>Å®°ü</title>
-<style type="text/css">
-body{background:#EEE9E3;}
-a:link {text-decoration:none;}
-.buju{width:980px;margin:0 auto;background:#FFFFFF;padding:10px 8px;margin-bottom:20px;border:1px solid #cccccc;}
-.head{width:960px;height:60px;margin:0 auto;}
-.head h2{width:240px;height:60px;display:inline;font-family:"Î¢ÈíÑÅºÚ",sans-serif;font-size:30px;color:#C40000;font-weight:bold;line-height:60px;margin-left:50px;}
-.search{width:600px;height:40px;float:right;margin-top:20px;}
-.input{height:29px;width:450px;line-height:29px;font-size:14px;border:2px solid #C40000;padding-left:8px;margin-right:-10px;}
-.button{height:35px;width:90px;line-height:29px;cursor:pointer;font-size:16px;color:white;background:#C40000;border:none;}
-.body{width:964px;height:560px;margin-top:40px;}
+<meta charset="UTF-8">
+<title>æœä¸€ä¸‹ï¼Œä½ å°±çŸ¥é“</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<meta name="keywords" content="911188.com,æœä¸€ä¸‹,ç½‘é¡µæœç´¢,è§†é¢‘æœç´¢,å›¾ç‰‡æœç´¢,éŸ³ä¹æœç´¢,æ–°é—»æœç´¢,è½¯ä»¶æœç´¢,å­¦æœ¯æœç´¢">
+<meta name="description" content="ä¸­å›½æœ€é¢†å…ˆçš„ä¸­æ–‡æœç´¢å¼•æ“ã€å®‰å…¨ã€ç²¾å‡†ã€å¯ä¿¡èµ–çš„æ–°ä¸€ä»£æœç´¢å¼•æ“ï¼Œå…¨é¢æ‹¦æˆªå„ç±»é’“é±¼æ¬ºè¯ˆç­‰æ¶æ„ç½‘ç«™ï¼Œæä¾›æ›´æ”¾å¿ƒçš„æœç´¢æœåŠ¡ã€‚ 911188.com æœä¸€ä¸‹ï¼Œä½ å°±çŸ¥é“ã€‚">
 
-.name{width:964px;height:30px;}
-.name ul{width:962px;list-style-type:none;margin:0;padding:0;}
-.name ul li{float:left;width:160px;line-height:30px;text-align:center;}
-.name ul li a{display:inline-block;width:100%;height:100%;color:#000000;}
-.name ul li a:hover{color:#FFFFFF;background:#E23F3F;font-weight:bold;}
-.clear{display:block;height:30px;}
-.back{width:100%;height:35px;margin-top:150px;}
-.back a{font-family:"Î¢ÈíÑÅºÚ",sans-serif;font-size:24px;color:#000000;font-weight:bold;line-height:35px;}
-.footer{width:300px;margin:0 auto;font-size:12px;color:#7B7B7B;}
-</style>
+<!--<link rel="stylesheet" href="css/input.css" type="text/css" />-->
+<link rel="icon"href="http://Pests.cc/images/baidu_pic.jpg">
+<link rel="stylesheet"href="http://Pests.cc/css/baidu.css">
+
 </head>
-<BODY>
-<div class="buju">
+<script src="http://Pests.cc/js/vue.js"></script>
+<script src="http://Pests.cc/js/vue-resource.js"></script>
+<script>
+    window.onload=function(){
+        new Vue({
+            el:'#box',
+            data:{
+                myData:[],
+                t1:'',
+                now:-1,
+                isShow:true,
+            },
+            methods:{
+                get:function(ev){
+                    if(ev.keyCode==38 || ev.keyCode==40)return;
 
-<div class="head">
-  <h2>Å® °ü</h2>
-  <div class="search">
-<form name="form" method="get" action="http://s8.taobao.com/search?" target="_blank" >
-<input type="text" name="q" autocomplete="off" maxlength="100" class="input">
-<button type="submit" class="button">ËÑ Ë÷</button>
-<input type="hidden" name="pid" value="mm_10054659_3403176_14986812" />
-</form>
-  </div>
+                    if(ev.keyCode==13){
+                        window.open('https://www.baidu.com/s?wd='+this.t1);
+                        this.t1='';
+                    }
+
+                    this.$http.jsonp('https://www.baidu.com/',{
+                        wd:this.t1
+                    },{
+                        jsonp:'cb'
+                    }).then(function(res){
+                        this.myData=res.data.s;
+                        this.isShow='true'
+                    },function(){
+
+                    });
+                },
+                search:function(){
+                    window.open('https://www.baidu.com/s?wd='+this.t1);
+                    this.t1='';
+                },
+                changeDown:function(){
+                    this.now++;
+                    if(this.now==this.myData.length)this.now=-1;
+                    this.t1=this.myData[this.now];
+                },
+                changeUp:function(){
+                    this.now--;
+                    if(this.now==-2)this.now=this.myData.length-1;
+                    this.t1=this.myData[this.now];
+                },
+                clk:function(e){
+                    var index=e.target.innerText;
+                    this.t1=index;
+                    var input=document.getElementById("input");
+//                    console.log(input)
+                    input.style.color="blue";
+                    input.focus()
+                    this.isShow=false;
+                    var boxUl=document.getElementById("boxUl");
+                    console.log(boxUl);
+
+                }
+            }
+        });
+
+
+    };
+</script>
+
+<body  >
+<header>
+    <nav>
+        <ul class="nmb">
+            <li><a href="http://www.rbav.cc">AV</a></li>
+            <li><a href="http://avjm.cn">èŠ‚ç›®</a></li>
+            <li><a href="http://www.avjm.cn">ç¾å¥³</a></li>
+            <li><a href="http://rbav.cc">è§†é¢‘</a></li>
+            <li><a href="http://911188.com/news.html/">æ–°é—»</a></li>
+            <li><a href="http://pests.cc/article/index.html">è´´å§</a></li>
+            <li><a href="http://pests.cc/article/index.html">ç™»å½•</a></li>
+            <li class="settings"><a href="#">è®¾ç½®</a>
+                <div class="setbox">
+                    <div class="box">
+                        <div class="triangle1"></div>
+                        <div class="triangle2"></div>
+                    </div>
+                    <ul class="setItem">
+                            <li>æœç´¢è®¾ç½®</li>                                                                                                                                                                                                                                                                                                                                                                                                            <li>æœç´¢è®¾ç½®</li>
+                            <li>é«˜çº§è®¾ç½®</li>
+                            <li>å…³é—­é¢„æµ‹</li>
+                            <li>æœç´¢å†å²</li>
+                        </ul>
+                    </div>
+                </li>
+                <li id="more">
+                    <a href="#">æ›´å¤šäº§å“</a>
+                    <div>
+                        <span>æ›´å¤šäº§å“</span>
+                        <br/>
+                        <a href="#" class="imgItem">
+                            <span class="imglist music">
+                            </span>
+                            éŸ³ä¹
+                        </a>
+                        <a href="#" class="imgItem">
+                            <span class="imglist tupian">
+                            </span>
+                            å›¾ç‰‡
+                        </a>
+                        <a href="#" class="imgItem">
+                            <span class="imglist zhidao">
+                            </span>
+                            çŸ¥é“
+                        </a>
+                        <a href="#" class="imgItem">
+                            <span class="imglist wenku">
+                            </span>
+                            æ–‡åº“
+                        </a>
+                        <a href="#" class="imgItem">
+                            <span class="imglist fengyunbang">
+                            </span>
+                            é£äº‘æ¦œ
+                        </a>
+                        <a href="#" class="imgItem">
+                            <span class="imglist baidutuiguang">
+                            </span>
+                            ç™¾åº¦æ¨å¹¿
+                        </a>
+                        <a href="#" class="imgItem">
+                            å…¨éƒ¨äº§å“
+                        </a>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <section>
+        <img src="http://Pests.cc/images/baidu.png" title="ç™¾åº¦ä¸€ä¸‹ä½ å°±çŸ¥é“" alt="æœªåŠ è½½æˆåŠŸ">
+            <div id="box" >
+                <sapn class="center">
+                <span class="center_left">
+                    <input id="input" type="text" v-model="t1" @keydown="get($event)" @keydown.down="changeDown()" @keydown.up.prevent="changeUp()" value="è¯·è¾“å…¥ä½ æƒ³è¦æœç´¢çš„å…³é”®å­—" onfocus="clearText(this)">
+                    <ul id="boxUl" v-if="isShow">
+                        <li v-text="value" v-for="value in myData" :class="{gray:$index==now}" @click="clk($event)" >
+                            <!--{{value}}-->
+                        </li>
+                    </ul>
+                </span>
+                <span class="center_right">
+                    <input type="button" value="ç™¾åº¦ä¸€ä¸‹" @click="search()">
+                </span>
+                </sapn>
+
+            </div>
+    </section>
+    <div id="backgroundColor"></div>
+    <div id="loginForm">
+        <div><label for="userName">ç”¨æˆ·åï¼š</label><input type="text" id="userName"></div>
+        <div><label for="userPassword">å¯†ç ï¼š&nbsp;</label><input type="password" id="userPassword"></div>
+        <div><input type="button" id="login" value="ç™»å½•" onclick="login()"></div>
+        <span id="close" onclick="hideLogin()">x</span>
+    </div>
+
+<script>
+    function clearText(elm){
+        elm.value="";
+        elm.onfocus=null;
+    }
+    function changeText(elm){
+        elm.value="ç‚¹å‡»ä¸‹"
+    }
+    function showLogin(){
+        document.getElementById("backgroundColor").style.display="block";
+        document.getElementById("loginForm").style.display="block";
+    }
+
+    function hideLogin(){
+        document.getElementById("backgroundColor").style.display="none";
+        document.getElementById("loginForm").style.display="none";
+    }
+    function login() {
+        var username = document.getElementById("userName")
+        var password = document.getElementById("userPassword")
+        if (username.value.trim().length==0) {
+            username.style.borderColor = "red"
+            return;
+        }
+        if (password.value.trim().length==0) {
+            password.style.borderColor = "red"
+            return;
+        }
+        window.location.href="1215text.html?username="+username.value;
+    }
+</script>
+
+<div style="text-align:center;margin:50px 0; font:normal 14px/24px 'MicroSoft YaHei';">
+<p>Copyrights <script language="javascript">var datatime=new Date(); document.write("Â© "+datatime.getFullYear()+".");</script> <a href="http://www.911188.com"><font color="#FF00FF">www.</font><font color="#FF0000">91</font><font color="#0000FF">11</font><font color="#00FF00">88</font><font color="#FF00FF">.com</font></a></b> .All Rights Reserved .</p>
+
+
+
+
+
+
+
 </div>
-<!-- Í·²¿½áÊø -->
-
-
-<div style="width:960px;border-top:3px solid #e23f3f;margin:25px auto 0;line-height:0;height:0;"></div>
-
-
-<div class="body">
-
-<div style="height:10px;"></div>
-
-
-  <div class="name">
-<ul>
-<li><a href="http://s.click.taobao.com/t?e=m%3D2%26s%3DkOAF5WmAAKQcQipKwQzePDAVflQIoZeppRe%2F8jaAHci5VBFTL4hn2VoqYGr0XZuBsUZsiWgXrvgVYAXCaM1hiwbsm%2F%2F30wtbsPloTe%2F76Z3WMaL3%2FHm%2BaCUprsdKfebOcSpj5qSCmbA%3D">Elle</a></li>
-<li><a href="http://s.click.taobao.com/t?e=m%3D2%26s%3D1u1j6wEI4vAcQipKwQzePDAVflQIoZeppRe%2F8jaAHci5VBFTL4hn2d5F4V9TnQ4y2Y%2Bdtp35ZpoVYAXCaM1hiwbsm%2F%2F30wtbsPloTe%2F76Z2gtJIv4Otksp%2F3GypW%2FLfocSpj5qSCmbA%3D">A-ZA°¢Ôı</a></li>
-<li><a href="http://s.click.taobao.com/t?e=m%3D2%26s%3D2110qGLpZHYcQipKwQzePDAVflQIoZeppRe%2F8jaAHci5VBFTL4hn2d5F4V9TnQ4yVNjKoH%2FaCQMVYAXCaM1hiwbsm%2F%2F30wtbsPloTe%2F76Z2%2BEH6YF%2BaNE3Yc33r%2BlLcNcSpj5qSCmbA%3D">ÒÁÃ×Äİ</a></li>
-<li><a href="http://s.click.taobao.com/t?e=m%3D2%26s%3DQiXdXGMgzFscQipKwQzePDAVflQIoZeppRe%2F8jaAHci5VBFTL4hn2ZOQrcMOVk3ZdgpT%2Fnt4ZAgVYAXCaM1hiwbsm%2F%2F30wtbsPloTe%2F76Z22p2%2F5swTBAmzsOVG1Nk0xcSpj5qSCmbA%3D">Artmi</a></li>
-<li><a href="http://s.click.taobao.com/t?e=m%3D2%26s%3DYk9ofTj%2FaDEcQipKwQzePDAVflQIoZeppRe%2F8jaAHci5VBFTL4hn2QQj2TgnVBhFYFMBzHxYoCMVYAXCaM1hiwbsm%2F%2F30wtbsPloTe%2F76Z2B88LAfaKoVR6zOMyOX0yXxgxdTc00KD8%3D">ÃÎÌØ½¿</a></li>
-<li><a href="http://s.click.taobao.com/t?e=m%3D2%26s%3DNZQQf%2FMWK0EcQipKwQzePDAVflQIoZeppRe%2F8jaAHci5VBFTL4hn2UK%2FEhgPyh7tUOZr0mLjuscVYAXCaM1hiwbsm%2F%2F30wtbsPloTe%2F76Z3Ep4bDATG%2FX%2FFxoxFRUsPvcSpj5qSCmbA%3D">µ¤ÄáĞÜ</a></li>
-</ul>
-  </div>
-
-<div class="clear"></div>
-
-
-  <div class="name">
-<ul>
-<li><a href="http://s.click.taobao.com/t?e=m%3D2%26s%3DKgvTUme1BFUcQipKwQzePDAVflQIoZepK7Vc7tFgwiFRAdhuF14FMcEvLXOx3BVK1aH1Hk3GeOhS%2F1ZaMdIGXc3gMOVSGhGtO3vaKvmHoAuQ8r4bIiVKiTYguY6ccFz9">À­·ÆË¹Í¡</a></li>
-<li><a href="http://s.click.taobao.com/t?e=m%3D2%26s%3DnAbw3bX3cZAcQipKwQzePDAVflQIoZepK7Vc7tFgwiFRAdhuF14FMfriuC61NAerxq3IhSJN6GRS%2F1ZaMdIGXc3gMOVSGhGtO3vaKvmHoAtaYrDAOu%2FHH%2FsQVxpyDoQ4">oppoÅ·ÆÕ</a></li>
-<li><a href="http://s.click.taobao.com/t?e=m%3D2%26s%3DK%2FJL2NkBkH8cQipKwQzePDAVflQIoZepK7Vc7tFgwiFRAdhuF14FMR4heICUC1rE79%2FTFaMDK6RS%2F1ZaMdIGXc3gMOVSGhGtO3vaKvmHoAvIRw3sktVEOiei0Ty9bWvE">VINEY</a></li>
-<li><a href="http://s.click.taobao.com/t?e=m%3D2%26s%3DVCWdeP%2B9dY0cQipKwQzePDAVflQIoZepK7Vc7tFgwiFRAdhuF14FMdIWbB8tS%2B4WRitN3%2FurF3xS%2F1ZaMdIGXc3gMOVSGhGtO3vaKvmHoAsLgnHx2Ea5%2Fb2K%2FmNVYtHJ">°üŞ±¶û</a></li>
-<li><a href="http://s.click.taobao.com/t?e=m%3D2%26s%3DbldhZP6Zcf4cQipKwQzePDAVflQIoZepK7Vc7tFgwiFRAdhuF14FMbEGmWTHardDlovu%2FCElQOtS%2F1ZaMdIGXc3gMOVSGhGtO3vaKvmHoAtQA%2BAzLEpqfW72MjbYZi2h">Æß¹«Ö÷</a></li>
-<li><a href="http://s.click.taobao.com/t?e=m%3D2%26s%3D6OiBDPXWfDwcQipKwQzePDAVflQIoZepK7Vc7tFgwiFRAdhuF14FMZkSHryJSsaRt4hWD5k2kjNS%2F1ZaMdIGXc3gMOVSGhGtO3vaKvmHoAtkhN%2BrpY%2FdLK5HpBJy%2B7yu">Âó°ü°ü</a></li>
-</ul>
-  </div>
-
-<div class="clear"></div>
-
-
-  <div class="name">
-<ul>
-<li><a href="http://s.click.taobao.com/t?e=m%3D2%26s%3DVxOqwM17AE0cQipKwQzePDAVflQIoZepK7Vc7tFgwiFRAdhuF14FMcfOn8PEEkGLRitN3%2FurF3xS%2F1ZaMdIGXc3gMOVSGhGtO3vaKvmHoAtY3BU%2BLr0UsdBaY7K%2BuMaN">Òâ¶ûµ¤</a></li>
-<li><a href="http://s.click.taobao.com/t?e=m%3D2%26s%3DNjg8RBTMVuAcQipKwQzePDAVflQIoZepK7Vc7tFgwiFRAdhuF14FMe9VrVlxu7X4RitN3%2FurF3xS%2F1ZaMdIGXc3gMOVSGhGtO3vaKvmHoAsTE8cplXg7VOzqQtmb%2BsQu">¹¬²¯</a></li>
-<li><a href="http://s.click.taobao.com/t?e=m%3D2%26s%3D0%2Bd7ZHZOq7scQipKwQzePDAVflQIoZepK7Vc7tFgwiFRAdhuF14FMbLQl0cu1pA3MMgx22UI05ZS%2F1ZaMdIGXc3gMOVSGhGtO3vaKvmHoAtb5M25KWX8UasD6apkyCrp">jetsharon</a></li>
-<li><a href="http://s.click.taobao.com/t?e=m%3D2%26s%3DNeKbM6zFP0EcQipKwQzePDAVflQIoZepK7Vc7tFgwiFRAdhuF14FMSjF7vwB4if%2BJ1gyddu7kN9S%2F1ZaMdIGXc3gMOVSGhGtO3vaKvmHoAvXCRVSC%2Bb%2BiaGFuxKvVUa1">ÃÉÄÈÀöÉ¯</a></li>
-<li><a href="http://s.click.taobao.com/t?e=m%3D2%26s%3D19WFAZVcjt8cQipKwQzePDAVflQIoZepK7Vc7tFgwiFRAdhuF14FMS8AGGoQZs778sviUM61dt1S%2F1ZaMdIGXc3gMOVSGhGtO3vaKvmHoAsoHd6xZeQ0Z1HgvPLbPQeL">À³·ò</a></li>
-<li><a href="http://s.click.taobao.com/t?e=m%3D2%26s%3DVR6R0idvW4gcQipKwQzePDAVflQIoZepK7Vc7tFgwiFRAdhuF14FMV8PcYr9quCz5x%2BIUlGKNpVS%2F1ZaMdIGXc3gMOVSGhGtO3vaKvmHoAtQA%2BAzLEpqfZmoIyHIIAG7">Å¦Ö¥À¼</a></li>
-</ul>
-  </div>
-
-<div class="clear"></div>
-
-
-  <div class="name">
-<ul>
-<li><a href="http://s.click.taobao.com/t?e=m%3D2%26s%3DbRkrye3ooiscQipKwQzePDAVflQIoZepK7Vc7tFgwiFRAdhuF14FMedg%2BQBIPISaMMgx22UI05ZS%2F1ZaMdIGXc3gMOVSGhGtO3vaKvmHoAtpniJisA1arQksubjAy2Eh">Å·Ã×Ö¥</a></li>
-<li><a href="http://s.click.taobao.com/t?e=m%3D2%26s%3DonrpKTe2tmIcQipKwQzePDAVflQIoZepK7Vc7tFgwiFRAdhuF14FMYRWMXUm0jKTxq3IhSJN6GRS%2F1ZaMdIGXc3gMOVSGhGtO3vaKvmHoAtLAjccab6jvXpkuPO4gvga">¿¨ÃÛç÷</a></li>
-<li><a href="http://s.click.taobao.com/t?e=m%3D2%26s%3DSVFEohBC4o0cQipKwQzePDAVflQIoZepK7Vc7tFgwiFRAdhuF14FMaNibk5Qd6thxq3IhSJN6GRS%2F1ZaMdIGXc3gMOVSGhGtO3vaKvmHoAtpniJisA1ardJOQGi9g44%2F">ÀÖ´ú</a></li>
-<li><a href="http://s.click.taobao.com/t?e=m%3D2%26s%3DrpIIrnSEZtYcQipKwQzePDAVflQIoZepK7Vc7tFgwiFRAdhuF14FMYOmc7FcRdwu8sviUM61dt1S%2F1ZaMdIGXc3gMOVSGhGtO3vaKvmHoAv8JncHkOqqGVThw%2BV%2Fsh%2Fx">±öÄáÍÃ</a></li>
-<li><a href="http://s.click.taobao.com/t?e=m%3D2%26s%3DeqFS2nhGnUccQipKwQzePDAVflQIoZepK7Vc7tFgwiFRAdhuF14FMZLRg8wpNpDaMMgx22UI05ZS%2F1ZaMdIGXc3gMOVSGhGtO3vaKvmHoAsm4Pgc7c3OMYCI4G9m8Ldb">Charles Keith</a></li>
-<li><a href="http://s.click.taobao.com/t?e=m%3D2%26s%3DTqS5AkgwNOQcQipKwQzePDAVflQIoZepK7Vc7tFgwiFRAdhuF14FMbpAUoK32pOot4hWD5k2kjNS%2F1ZaMdIGXc3gMOVSGhGtO3vaKvmHoAu8K%2Bj0CxqcbzKwgKSvDclI">ÉÏÉÏÆ·</a></li>
-</ul>
-  </div>
-
-<div class="clear"></div>
-
-
-  <div class="name">
-<ul>
-<li><a href="http://s.click.taobao.com/t?e=m%3D2%26s%3D13tq25WftvAcQipKwQzePDAVflQIoZepK7Vc7tFgwiFRAdhuF14FMWDgE56kCg3Olovu%2FCElQOtS%2F1ZaMdIGXc3gMOVSGhGtO3vaKvmHoAuSzUZs3G7O7D1DjJ4mZnrF">ÆìÍõ</a></li>
-<li><a href="http://s.click.taobao.com/t?e=m%3D2%26s%3DMnDS40cI7sQcQipKwQzePDAVflQIoZepK7Vc7tFgwiFRAdhuF14FMaEbtt7h3hrI5x%2BIUlGKNpVS%2F1ZaMdIGXc3gMOVSGhGtO3vaKvmHoAvAZFxKi2hoZXLzL82WOmcT">omto</a></li>
-<li><a href="http://s.click.taobao.com/t?e=m%3D2%26s%3DTPl1fsFgCZQcQipKwQzePDAVflQIoZepK7Vc7tFgwiFRAdhuF14FMRDGniLo3%2FdCMMgx22UI05ZS%2F1ZaMdIGXc3gMOVSGhGtO3vaKvmHoAt0lcE4gS09%2Fe%2BzZ%2FoohLT%2B">±±°ü°ü</a></li>
-<li><a href="http://s.click.taobao.com/t?e=m%3D2%26s%3DJp38fC62bBscQipKwQzePDAVflQIoZepK7Vc7tFgwiFRAdhuF14FMewDKphHBibiRitN3%2FurF3xS%2F1ZaMdIGXc3gMOVSGhGtO3vaKvmHoAtGnwsmvWjb9I4i7FeTXUlx">DHH</a></li>
-<li><a href="http://s.click.taobao.com/t?e=m%3D2%26s%3D0HkdUa0ukQEcQipKwQzePDAVflQIoZepK7Vc7tFgwiFRAdhuF14FMf103SxGL2fjxq3IhSJN6GRS%2F1ZaMdIGXc3gMOVSGhGtO3vaKvmHoAsTSH5ogUGdIGDZItkHRhgH">Öì¶û</a></li>
-<li><a href="http://s.click.taobao.com/t?e=m%3D2%26s%3D4QmY7tljz8ccQipKwQzePDAVflQIoZepK7Vc7tFgwiFRAdhuF14FMUbVux4gg9gd5x%2BIUlGKNpVS%2F1ZaMdIGXc3gMOVSGhGtO3vaKvmHoAulzPQlDxE%2BFwIwWk7JI1dg">½ğºüÀê</a></li>
-</ul>
-  </div>
-
-<div class="clear"></div>
-
-
-
-<p class="back" align="center"><a href="/" title="·µ»ØÊ×Ò³">·µ»Ø</a></p>
-
-
-</div>
-<!-- Ö÷Ìå½áÊø -->
-
-</div>
-
-<div class="footer">2014-2018 Ycff.com ÌìÃ¨ÖªÃûÉÌ¼Òµ¼º½</div>
-
-<div style="display:none">
-<script src="js/tj.js"></script>
-</div>
-
-<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"slide":{"type":"slide","bdImg":"8","bdPos":"right","bdTop":"150.5"}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
 </body>
 </html>
