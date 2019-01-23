@@ -1,0 +1,1 @@
+﻿document.writeln("<div><iframe src=\'http://www.779112.com/bbs/bbs.html\' frameborder=\'0\' scrolling=\'NO\' width=\'100%\' height=\'1810\' target=\'_blank\' name=\'I2\'></iframe></div>");
